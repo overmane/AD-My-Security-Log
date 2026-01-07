@@ -320,4 +320,4 @@ TryHackMe{K3rb3r0s_Pr3_4uth}
 This lab demonstrates how **misconfiguration beats exploitation**. No malware, no memory corruption — just abusing trust relationships and weak operational discipline. The attack path is realistic, repeatable, and devastating.
 
 ---
-*Notes compiled based on TryHackMe Attacktive Directory (https://tryhackme.com/room/attacktivedirectory) lab.*
+*Write-up compiled based on TryHackMe Attacktive Directory (https://tryhackme.com/room/attacktivedirectory) lab.*
