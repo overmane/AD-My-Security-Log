@@ -26,7 +26,8 @@ The majority of Active Directory compromises happen due to:
 Active Directory (AD) is Microsoft’s centralized system for **managing corporate networks**, identities, access control, and security policies.  
 It is deployed on **Windows Server** and acts as the backbone of enterprise authentication.
 
-### Key Components
+---
+### Key Components:
 
 ### 1. Domain
 A logical security boundary inside Active Directory.  
