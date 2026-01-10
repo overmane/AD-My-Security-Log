@@ -3,6 +3,7 @@
 This document is a structured study notes based on personal notes, open-source research and ~5-hour lecture.
 
 **Date:** January 10, 2026
+
 **Source:** Personal notes from a ~5-hour lecture, additional open-source research, The Cyber Mentor (YouTube): https://www.youtube.com/watch?v=VXxH4n684HE
 
 ---
