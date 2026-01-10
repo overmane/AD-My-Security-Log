@@ -345,9 +345,7 @@ It should only be used for:
 
 ## Practical Exploitation (Attack Playbooks)
 
-This section is a consolidated, command-focused appendix.
-It contains only practical exploitation commands, grouped by attack type.
-Conceptual explanations are intentionally omitted.
+This section is a consolidated, command-focused appendix. It contains only practical exploitation commands, grouped by attack type. Conceptual explanations are intentionally omitted.
 
 ---
 
