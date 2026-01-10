@@ -423,9 +423,9 @@ Artifacts:
 
 ---
 
-### Relay captured authentication using ntlmrelayx.
+### Relay captured authentication using ntlmrelayx
 
-**PowerView Enumeration:**
+PowerView Enumeration:
 
 ```
 powershell -ep bypass
