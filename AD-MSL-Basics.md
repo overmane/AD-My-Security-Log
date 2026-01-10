@@ -568,6 +568,8 @@ Decrypt:
 gpp-decrypt <cpassword>
 ```
 
+---
+
 ### URL File Attacks
 
 ```
@@ -576,6 +578,7 @@ gpp-decrypt <cpassword>
 
 Triggered automatically when a user opens the folder.
 
+---
 
 ### Mimikatz (Offline / Post-Exploitation)
 
