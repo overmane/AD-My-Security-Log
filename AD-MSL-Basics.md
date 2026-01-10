@@ -556,7 +556,7 @@ hashcat -m 13100 hash.txt wordlist.txt
 
 ---
 
-## GPP (MS14-025)
+### GPP (MS14-025)
 
 Browse SYSVOL:
 ```
