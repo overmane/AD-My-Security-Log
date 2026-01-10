@@ -130,12 +130,6 @@ Notes:
 * Only usable via **offline brute-force**
 * Responder is part of the **Impacket toolkit**
 
-### Practical Example
-
-```bash
-responder -I eth0 -rdwv
-```
-
 ### Mitigations
 
 * Disable **LLMNR** and **NBT-NS**
