@@ -69,7 +69,7 @@ Results:
 Port **6379 (Redis)** is an unusual find on a DC. Version 2.8.x is legacy and often lacks authentication.
 
 ```zsh
-$ redis-cli -h 10.81.130.174 # Attempting unauthenticated access  
+$ redis-cli -h 10.81.130.174 # Attempting unauthenticated access
 ```
 
 Access is granted without a password. To escalate this, we use Responder to capture the **NTLMv2 hash** of the service account by forcing Redis to access a fake remote directory.
