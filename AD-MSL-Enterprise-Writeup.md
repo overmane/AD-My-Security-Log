@@ -1,6 +1,6 @@
 # Write-up: Enterprise lab on THM
 
-This document is a structured security write-up based on hands-on exploitation of the Enterprise lab on TryHackMe website: https://tryhackme.com/room/enterprise
+This document is a structured security write-up based on hands-on exploitation of the **Enterprise** lab on TryHackMe website: https://tryhackme.com/room/enterprise
 
 **Date**: January 12, 2026  
 **Source**: TryHackMe — Enterprise & Personal Study Notes
@@ -9,14 +9,14 @@ This document is a structured security write-up based on hands-on exploitation o
 
 ## Research Overview
 
-This lab demonstrates a realistic Active Directory compromise driven not by a single critical exploit, but by operational security failures, credential exposure, Kerberos abuse, and a classic misconfigured Windows service running as SYSTEM.
+This lab demonstrates a realistic Active Directory compromise driven not by a single critical exploit, but by **operational security failures**, **credential exposure**, **Kerberos abuse**, and a classic **misconfigured Windows** service running as SYSTEM.
 
-**The compromise highlights**:
+**The compromise highlights**:  
 * Credential leaks via public GitHub repositories.
 * Residual sensitive data inside SMB shares.
 * Kerberoasting leading to RDP access.
 * Privilege escalation via a writable SYSTEM service binary.
-* No "magic exploit" — just layered mistakes compounding into full domain compromise.
+* **No "magic exploit"** — just layered mistakes compounding into full domain compromise.
 
 ---
 
@@ -102,7 +102,7 @@ Result:
 $ ffuf -w /usr/share/seclists/Discovery/Web-Content/common.txt:FUZZ -u "http://10.82.128.93/FUZZ" -ic -c -e .txt,.php,.html
 ```
 
-Only robots.txt exists:  
+**Only robots.txt** exists:  
 ```text
 Why would robots.txt exist on a Domain Controllers web server?
 Robots.txt is for search engines, not for you!
@@ -118,7 +118,7 @@ $ ffuf -w /usr/share/seclists/Discovery/Web-Content/common.txt:FUZZ -u "http://1
 
 No useful endpoints discovered.
 
-At this point, HTTP is not our entry point.
+At this point, **HTTP is not** our entry point.
 
 ---
 
@@ -130,8 +130,8 @@ $ smbclient -L //10.82.128.93 -N
 ```
 
 Interesting shares:  
-* Docs
-* Users — "Users Share. Do Not Touch!"
+* **Docs**
+* **Users** — "Users Share. Do Not Touch!"
 
 ---
 
@@ -141,7 +141,7 @@ Files discovered:
 * RSA-Secured-Credentials.xlsx
 * RSA-Secured-Document-PII.docx
 
-Both are password-protected.
+Both are **password-protected**.
 
 Attempted cracking:  
 ```bash
@@ -160,7 +160,7 @@ $ hashcat -m 9600 hash1.txt /usr/share/eaphammer/wordlists/rockyou.txt --force
 $ hashcat -m 9600 hash2.txt /usr/share/eaphammer/wordlists/rockyou.txt --force
 ```
 
-After ~15 minutes at ~5000 H/s:  
+After **~15 minutes** at **~5000 H/s**:  
 * No passwords recovered
 
 *This path is abandoned.*
@@ -182,7 +182,7 @@ Folders of interest:
 ### 10. PowerShell History Credential Leak
 
 Inside:  
-* LAB-ADMIN\AppData\Roaming\Microsoft\Windows\Powershell\PSReadline\ConsoleHost_history.txt
+* LAB-ADMIN\AppData\Roaming\Microsoft\Windows\Powershell\PSReadline\**ConsoleHost_history.txt**
 
 Credentials found:  
 ```text
