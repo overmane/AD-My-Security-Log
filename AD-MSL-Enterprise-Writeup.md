@@ -185,7 +185,9 @@ Inside:
 * LAB-ADMIN\AppData\Roaming\Microsoft\Windows\Powershell\PSReadline\ConsoleHost_history.txt
 
 Credentials found:  
-* replication:101RepAdmin123!!
+```text
+replication:101RepAdmin123!!
+```
 
 Validation attempt:  
 ```bash
