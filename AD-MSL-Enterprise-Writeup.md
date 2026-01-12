@@ -182,7 +182,9 @@ Folders of interest:
 ### 10. PowerShell History Credential Leak
 
 Inside:  
-* LAB-ADMIN\AppData\Roaming\Microsoft\Windows\Powershell\PSReadline\ConsoleHost_history.txt
+```text
+LAB-ADMIN\AppData\Roaming\Microsoft\Windows\Powershell\PSReadline\ConsoleHost_history.txt
+```
 
 Credentials found:  
 ```text
