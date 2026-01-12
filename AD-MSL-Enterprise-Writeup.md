@@ -215,7 +215,7 @@ Validation:
 $ nxc smb 10.82.128.93 -u 'nik' -p 'ToastyBoi!'
 ```
 
-*Success.*
+Success.
 
 *First valid domain credentials obtained.*
 
@@ -231,7 +231,7 @@ Validation:
 $ nxc smb 10.82.128.93 -u 'contractor-temp' -p 'Password123!'
 ```
 
-*Success.*
+Success.
 
 Current credentials:  
 ```text
