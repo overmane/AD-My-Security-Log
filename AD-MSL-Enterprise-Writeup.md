@@ -110,7 +110,7 @@ Robots.txt is for search engines, not for you!
 
 ---
 
-6. HTTP Fuzzing (Port 7990)
+### 6. HTTP Fuzzing (Port 7990)
 
 ```bash
 $ ffuf -w /usr/share/seclists/Discovery/Web-Content/common.txt:FUZZ -u "http://10.82.128.93:7990/FUZZ" -ic -c -e .txt,.php,.html
