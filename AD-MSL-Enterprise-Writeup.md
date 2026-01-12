@@ -91,7 +91,7 @@ $ impacket-GetNPUsers LAB.ENTERPRISE.THM/ -usersfile users2.txt -format hashcat 
 Result:  
 * No users returned hashes
 
-No AS-REP roastable accounts found.
+*No AS-REP roastable accounts found.*
 
 ---
 
