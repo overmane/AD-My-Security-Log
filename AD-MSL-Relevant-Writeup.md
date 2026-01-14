@@ -136,7 +136,7 @@ Bill - Juw4nnaM4n420696969!$$$
 
 *Some credentials.*
 
-Verify this credentials:  
+Verify Bob's credentials:  
 ```bash
 $ nxc smb 10.80.131.73 -u 'Bob' -p '!P@$$W0rD!123'
 ```
@@ -146,8 +146,10 @@ Bob positive:
 [+] Relevant\Bob:!P@$$W0rD!123
 ```
 
+Verify Bill's credentials: 
+
 ```bash
-$ nxc smb 10.80.131.73 -u 'Bob' -p '!P@$$W0rD!123'
+$ nxc smb 10.80.131.73 -u 'Bill' -p 'Juw4nnaM4n420696969!$$$'
 ```
 
 Bill positive:  
