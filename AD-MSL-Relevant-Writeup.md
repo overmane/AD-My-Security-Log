@@ -217,6 +217,7 @@ Then move shell.aspx -> smbclient:
 c:\Users\Bob\Desktop>type user.txt
 ```
 
+User Flag:  
 ```text
 THM{fdk4ka34vk346ksxfr21tg789ktf45}
 ```
