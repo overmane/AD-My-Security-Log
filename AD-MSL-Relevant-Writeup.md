@@ -166,7 +166,7 @@ $ nxc rdp 10.80.131.73 -u 'Bob' -p '!P@$$W0rD!123'
 ```
 
 ```bash
-$ nxc smb 10.80.131.73 -u 'Bill' -p 'Juw4nnaM4n420696969!$$$'
+$ nxc rdp 10.80.131.73 -u 'Bill' -p 'Juw4nnaM4n420696969!$$$'
 ```
 
 No RDP for both.
