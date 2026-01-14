@@ -114,7 +114,7 @@ passwords.txt
 ```
 
 ```powershell
-mget passwords.txt
+> mget passwords.txt
 ```
 
 ```bash
