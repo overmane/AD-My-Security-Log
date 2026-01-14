@@ -213,8 +213,6 @@ Then move shell.aspx -> smbclient:
 
 *Completed.*
 
----
-
 ```text
 c:\Users\Bob\Desktop>type user.txt
 ```
