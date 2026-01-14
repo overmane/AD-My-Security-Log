@@ -146,7 +146,7 @@ Check for RCE first:
 
 Navigate: http://10.80.131.73:49663/nt4wrksv/cmdasp.aspx
 
-Then:
+Then in the **netcat** shell:
 ```text
 whoami
 ```
