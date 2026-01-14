@@ -35,6 +35,8 @@ Results:
 Look for **http** port 80:  
 * **http://10.80.131.73** — stock Windows Server 2016 web page, nothing interesting in there.
 
+<img width="1920" height="901" alt="web" src="https://github.com/user-attachments/assets/4382e86d-3ffc-4596-ae46-84aec2cbe3f2" />
+
 Check it out with fuzzing:  
 ```bash
 $ ffuf -w /usr/share/seclists/Discovery/Web-Content/common.txt:FUZZ -u "http://10.80.131.73/FUZZ" -ic -c
