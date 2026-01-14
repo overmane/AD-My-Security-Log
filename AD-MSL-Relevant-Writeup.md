@@ -64,9 +64,7 @@ $ smbclient //10.80.131.73/nt4wrksv -N
 smb: \> ls
 ```
 
-```text
-passwords.txt
-```
+<img width="868" height="206" alt="Screenshot 2026-01-14 183839" src="https://github.com/user-attachments/assets/77da5b5c-953e-401a-803f-9f249c3fc4ad" />
 
 ```powershell
 > mget passwords.txt
