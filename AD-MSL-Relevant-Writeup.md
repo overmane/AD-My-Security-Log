@@ -84,19 +84,6 @@ $ ffuf -w /usr/share/seclists/Discovery/Web-Content/common.txt:FUZZ -u "http://1
 
 ---
 
-```bash
-$ enum4linux -a 10.80.131.73
-```
-
-Domain name is just "Relevant". No extension.
-
-```text
-/etc/hosts:
-10.80.131.73 Relevant
-```
-
----
-
 Look for available shares:  
 ```bash
 $ smbclient -L //10.80.131.73/ -N
@@ -184,13 +171,7 @@ $ evil-winrm -i 10.80.131.73 -u 'Bob' -p '!P@$$W0rD!123'
 
 No evil-winrm shell for both.
 
-```bash
-$ impacket-GetUserSPNs Relevant/Bob:'!P@$$W0rD!123' -dc-ip 10.80.131.73 -request
-```
-
-No kerberoastable users.
-
-**But there is one critical thing — we can write in the share "nt4wrksv", that means RCE.**
+**But there is one critical thing — we can write in the share "nt4wrksv" as anonymous, that means no account required for RCE.**
 
 ---
 
