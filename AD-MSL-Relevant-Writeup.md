@@ -40,6 +40,8 @@ Check it out with fuzzing:
 $ ffuf -w /usr/share/seclists/Discovery/Web-Content/common.txt:FUZZ -u "http://10.80.131.73/FUZZ" -ic -c
 ```
 
+<img width="1199" height="518" alt="Screenshot 2026-01-14 183727" src="https://github.com/user-attachments/assets/f5a90f00-b54d-4213-8e71-18f9103b577c" />
+
 *Nothing.*
 
 ---
