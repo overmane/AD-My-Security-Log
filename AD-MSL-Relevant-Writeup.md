@@ -142,6 +142,8 @@ Check for RCE first:
 > put cmdasp.aspx
 ```
 
+<img width="852" height="190" alt="put" src="https://github.com/user-attachments/assets/c79eeedd-970d-4b0f-804f-de00170dd918" />
+
 Navigate: http://10.80.131.73:49663/nt4wrksv/cmdasp.aspx
 
 Then:
