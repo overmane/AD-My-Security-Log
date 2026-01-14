@@ -26,47 +26,7 @@ $ sudo nmap -sC -sV -v -Pn -p- 10.80.131.73
 ```
 
 Results:  
-```text
-PORT      STATE SERVICE       VERSION
-80/tcp    open  http          Microsoft IIS httpd 10.0
-|_http-title: IIS Windows Server
-|_http-server-header: Microsoft-IIS/10.0
-| http-methods:
-|   Supported Methods: OPTIONS TRACE GET HEAD POST
-|_  Potentially risky methods: TRACE
-135/tcp   open  msrpc         Microsoft Windows RPC
-139/tcp   open  netbios-ssn   Microsoft Windows netbios-ssn
-445/tcp   open  microsoft-ds  Windows Server 2016 Standard Evaluation 14393 microsoft-ds (workgroup: WORKGROUP)
-3389/tcp  open  ms-wbt-server Microsoft Terminal Services
-| rdp-ntlm-info:
-|   Target_Name: RELEVANT
-|   NetBIOS_Domain_Name: RELEVANT
-|   NetBIOS_Computer_Name: RELEVANT
-|   DNS_Domain_Name: Relevant
-|   DNS_Computer_Name: Relevant
-|   Product_Version: 10.0.14393
-|_  System_Time: 2026-01-14T17:10:46+00:00
-|_ssl-date: 2026-01-14T17:11:25+00:00; 0s from scanner time.
-| ssl-cert: Subject: commonName=Relevant
-| Issuer: commonName=Relevant
-| Public Key type: rsa
-| Public Key bits: 2048
-| Signature Algorithm: sha256WithRSAEncryption
-| Not valid before: 2026-01-13T17:03:25
-| Not valid after:  2026-07-15T17:03:25
-| MD5:     64f0 bf68 2f3d df1a d706 7048 7a2d 0d08
-| SHA-1:   5582 e854 af4d be9c 05ef e9fa fe31 7ab0 c08b 0dbc
-|_SHA-256: 06fe 4299 6fea 2780 1b70 4e15 e5f3 9b6e 17c3 477e 57ea 3ada 9de6 441e 8bd0 3b22
-49663/tcp open  http          Microsoft IIS httpd 10.0
-|_http-title: IIS Windows Server
-| http-methods:
-|   Supported Methods: OPTIONS TRACE GET HEAD POST
-|_  Potentially risky methods: TRACE
-|_http-server-header: Microsoft-IIS/10.0
-49666/tcp open  msrpc         Microsoft Windows RPC
-49667/tcp open  msrpc         Microsoft Windows RPC
-Service Info: Host: RELEVANT; OS: Windows; CPE: cpe:/o:microsoft:windows
-```
+<img width="680" height="470" alt="Screenshot 2026-01-14 184023" src="https://github.com/user-attachments/assets/1d23cf8b-38d1-4ea3-b42a-c727efa7ef9f" />
 
 *Here is standalone web server **"Relevant"**.*
 
