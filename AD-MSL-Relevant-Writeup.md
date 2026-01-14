@@ -87,6 +87,8 @@ Bob - !P@$$W0rD!123
 Bill - Juw4nnaM4n420696969!$$$
 ```
 
+<img width="1920" height="932" alt="Screenshot 2026-01-14 183928" src="https://github.com/user-attachments/assets/2bea3bda-1753-4f26-99e1-bbb9ba6ae8ef" />
+
 *Some credentials.*
 
 Verify Bob's credentials:  
