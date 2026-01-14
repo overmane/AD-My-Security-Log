@@ -1,7 +1,5 @@
 # Write-up: Relevant lab on THM
 
----
-
 This document is a structured security write-up based on hands-on exploitation of the **Relevant** lab on TryHackMe website: https://tryhackme.com/room/relevant
 
 **Date**: January 14, 2026  
