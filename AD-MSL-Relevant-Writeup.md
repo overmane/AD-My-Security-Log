@@ -52,14 +52,7 @@ $ smbclient -L //10.80.131.73/ -N
 ```
 
 Result:  
-```text
-        Sharename       Type      Comment
-        ---------       ----      -------
-        ADMIN$          Disk      Remote Admin
-        C$              Disk      Default share
-        IPC$            IPC       Remote IPC
-        nt4wrksv        Disk
-```
+<img width="599" height="179" alt="Screenshot 2026-01-14 183813" src="https://github.com/user-attachments/assets/ab2717d6-7d6a-4366-a4aa-98e0cb89d3da" />
 
 Catch it. **"nt4wrksv"** it's someting interesting.
 
