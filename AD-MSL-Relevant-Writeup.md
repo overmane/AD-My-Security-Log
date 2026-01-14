@@ -227,7 +227,6 @@ THM{fdk4ka34vk346ksxfr21tg789ktf45}
 
 ### 3. Escalation
 
----
 
 Send **"winPEAS"** to the target:  
 ```powershell
