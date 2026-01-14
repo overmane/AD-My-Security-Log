@@ -207,6 +207,9 @@ powershell .\wp.ps1 > output.txt
 ```
 
 output.txt:  
+
+<img width="840" height="464" alt="priv" src="https://github.com/user-attachments/assets/a23474f4-9a67-4cf7-879d-4448a31e5305" />
+
 ```text
 Privilege "SeImpersonatePrivilege" is Enabled
 ```
