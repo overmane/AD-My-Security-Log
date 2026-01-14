@@ -292,10 +292,10 @@ THM{1fk5kf469devly1gl320zafgl345pv}
 
 ## Security Failures & Root Causes Classification
 
-Access Control — Anonymous Write Access on SMB Share — Critical impact — The nt4wrksv share was configured with "Full Control" or "Write" permissions for anonymous/guest users, allowing the upload of malicious .aspx payloads.
-Improper Authorization — Excessive Service Account Privileges — High impact — The "iis apppool\defaultapppool" account held SeImpersonatePrivilege, which is unnecessary for standard web operations and enables token impersonation attacks.
-Information Disclosure — Cleartext/Base64 Credentials in Share — Medium impact — Sensitive data (passwords.txt) was stored in a publicly accessible directory — Base64 is an encoding, not encryption, providing no security.
-Configuration Management — Insecure Default IIS Deployment — Medium impact — The web server was running with default configurations and mapping high-numbered ports (49663) to sensitive SMB directories, increasing the attack surface.
+* Access Control — Anonymous Write Access on SMB Share — Critical impact — The nt4wrksv share was configured with "Full Control" or "Write" permissions for anonymous/guest users, allowing the upload of malicious .aspx payloads.
+* Improper Authorization — Excessive Service Account Privileges — High impact — The "iis apppool\defaultapppool" account held SeImpersonatePrivilege, which is unnecessary for standard web operations and enables token impersonation attacks.
+* Information Disclosure — Cleartext/Base64 Credentials in Share — Medium impact — Sensitive data (passwords.txt) was stored in a publicly accessible directory — Base64 is an encoding, not encryption, providing no security.
+* Configuration Management — Insecure Default IIS Deployment — Medium impact — The web server was running with default configurations and mapping high-numbered ports (49663) to sensitive SMB directories, increasing the attack surface.
 
 ---
 
