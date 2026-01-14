@@ -270,4 +270,4 @@ THM{1fk5kf469devly1gl320zafgl345pv}
 
 ---
 
-*Write-up compiled based on TryHackMe Attacktive Directory (https://tryhackme.com/room/relevant) lab.*
+*Write-up compiled based on TryHackMe Relevant (https://tryhackme.com/room/relevant) lab.*
