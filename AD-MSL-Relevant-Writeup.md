@@ -148,6 +148,8 @@ Check for RCE first:
 
 Navigate: http://10.80.131.73:49663/nt4wrksv/cmdasp.aspx
 
+<img width="720" height="178" alt="netcat" src="https://github.com/user-attachments/assets/c4333aac-a1da-4b53-9bc9-3c6732355fad" />
+
 Then in the **netcat** shell:
 ```text
 whoami
