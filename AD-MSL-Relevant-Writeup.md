@@ -312,7 +312,7 @@ THM{1fk5kf469devly1gl320zafgl345pv}
 
 ## Conclusion
 
-This lab demonstrates how misconfiguration beats exploitation. No sophisticated malware or memory corruption was required—only the abuse of over-privileged trust relationships and weak operational discipline. By exposing a writable SMB share and granting a web service account unnecessary impersonation rights, the server provided a clear, repeatable path from anonymous access to full SYSTEM compromise. This attack path is a realistic and devastating reminder that security is only as strong as its most basic configuration.
+> This lab demonstrates how misconfiguration beats exploitation. No sophisticated malware or memory corruption was required—only the abuse of over-privileged trust relationships and weak operational discipline. By exposing a writable SMB share and granting a web service account unnecessary impersonation rights, the server provided a clear, repeatable path from anonymous access to full SYSTEM compromise. This attack path is a realistic and devastating reminder that security is only as strong as its most basic configuration.
 
 ---
 
