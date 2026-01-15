@@ -9,7 +9,7 @@ This document is a structured security write-up based on hands-on exploitation o
 
 ## Summary
 
-Standalone web server **"Relevant"** was fully compromised by the next **few steps**:  
+Standalone workgroup web server **"Relevant"** was fully compromised by the next **few steps**:  
 * Share **"nt4wrksv"** is writable for **any** anonymous in smbclient — it's easy **Remote Code Execution**.
 * Remote Code Execution -> **Reverse Shell** -> full ability of machine movement for a hacker and full ability of privilege escalation vector research — comfortable and **easy POST work** for a hacker.
 * **Critical** Windows server **misconfiguration** — user **"iis apppool\defaultapppool"** has privilege **"SeImpersonatePrivilege"**, what means a hacker can run **"PrintSpoofer"** and get a **SYSTEM** (full access to the server) easy and fast.
