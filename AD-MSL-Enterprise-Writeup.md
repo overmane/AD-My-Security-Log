@@ -1,4 +1,4 @@
-# Write-up: Enterprise lab on THM
+# Write-up: Enterprise lab (Hard) on THM
 
 This document is a structured security write-up based on hands-on exploitation of the **Enterprise** lab on TryHackMe website: https://tryhackme.com/room/enterprise
 
