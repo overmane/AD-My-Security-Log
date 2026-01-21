@@ -30,7 +30,9 @@ raz0rblack.thm
 ```
 
 /etc/hosts:  
+```text
 10.82.151.164 raz0rblack.thm
+```
 
 ---
 
